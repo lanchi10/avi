@@ -1,324 +1,276 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>מחשבון היוון ותשלום נדחה עם הצמדה למדד</title>
+    <title>מחשבון היוון רמ"י והסבר</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            direction: rtl;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
             padding: 20px;
-            background-color: #f0f8ff;
-            color: #2c3e50;
         }
         .container {
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+        }
+        .calculator {
+            flex: 2;
             background-color: #ffffff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 22px;
-            color: #1a5276;
-            font-weight: bold;
-        }
-        .greeting {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 18px;
-            color: #1f618d;
-            font-weight: bold;
-        }
-        .greeting .manager {
-            color: #28a745;
-            font-weight: bold;
-        }
-        .option {
-            background-color: #d4edda;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border: 2px solid #c3e6cb;
-        }
-        .important {
-            background-color: #f9e79f;
-            padding: 10px;
-            margin-top: 20px;
-            border-radius: 5px;
-            font-size: 18px;
-            border: 2px solid #f1c40f;
-        }
-        .note {
+        .explanation {
+            flex: 1;
+            background-color: #e8f6fd;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             font-size: 14px;
-            color: #7d6608;
-            margin-top: 20px;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
         }
         label {
-            margin-top: 10px;
             display: block;
+            margin-bottom: 5px;
             font-weight: bold;
-            color: #2c3e50;
+            color: #34495e;
         }
-        input[type="number"], select {
+        input, select {
             width: 100%;
-            padding: 12px;
-            margin-top: 5px;
-            margin-bottom: 20px;
-            box-sizing: border-box;
+            padding: 10px;
             border: 1px solid #bdc3c7;
-            border-radius: 8px;
+            border-radius: 4px;
             font-size: 16px;
         }
         button {
-            background: linear-gradient(to right, #4CAF50, #45a049);
+            background-color: #3498db;
             color: white;
             border: none;
-            padding: 12px 20px;
-            cursor: pointer;
-            font-size: 18px;
+            padding: 10px 20px;
             border-radius: 4px;
-            width: 100%;
-            margin-bottom: 10px;
-            transition: box-shadow 0.3s ease;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
         }
         button:hover {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #2980b9;
         }
-        .result {
-            margin-top: 20px;
+        #result {
+            margin-top: 30px;
+            background-color: #e8f6fd;
+            padding: 20px;
+            border-radius: 5px;
             font-size: 18px;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        .clear-button {
-            background-color: #e74c3c;
-            margin-top: 10px;
         }
         .highlight {
-            background-color: #d1ecf1;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        .info-box {
+            background-color: #f1c40f;
             padding: 10px;
             border-radius: 5px;
-            border: 2px solid #bee5eb;
-            color: #0c5460;
-            font-weight: bold;
             margin-top: 20px;
+            font-style: italic;
         }
-        .external-link {
-            margin-top: 20px;
-            font-size: 16px;
-            text-align: center;
-        }
-        .external-link a {
-            color: #007bff;
+        .link {
+            color: #3498db;
             text-decoration: none;
+        }
+        .link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <div class="calculator">
+            <h1>מחשבון היוון רמ"י</h1>
+            
+            <div class="form-group">
+                <label for="propertyValue">ערך הנכס (בש"ח):</label>
+                <input type="number" id="propertyValue" placeholder="הכנס את ערך הנכס">
+            </div>
 
-<div class="container">
-    <div class="greeting">
-        בס"ד
+            <div class="form-group">
+                <label for="requestedSize">שטח מבוקש לבנייה (עד 370 מ"ר):</label>
+                <input type="number" id="requestedSize" value="160" max="370">
+            </div>
+
+            <div class="form-group">
+                <label for="paymentOption">מסלול תשלום:</label>
+                <select id="paymentOption">
+                    <option value="partial_160">תשלום מיידי על 160 מ"ר</option>
+                    <option value="full_370">תשלום מיידי על 370 מ"ר</option>
+                    <option value="deferred">דחיית התשלום</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="deferYears">מספר שנים לדחייה (אם יש):</label>
+                <input type="number" id="deferYears" value="0" min="0">
+            </div>
+
+            <div class="form-group">
+                <label for="interestRate">אחוז ריבית שנתית לדחייה:</label>
+                <input type="number" id="interestRate" value="3" step="0.1" min="0">
+            </div>
+
+            <div class="form-group">
+                <label for="baseIndex">מדד בסיס:</label>
+                <input type="number" id="baseIndex" value="100" step="0.1">
+            </div>
+
+            <div class="form-group">
+                <label for="currentIndex">מדד נוכחי:</label>
+                <input type="number" id="currentIndex" value="100" step="0.1">
+            </div>
+
+            <p>לבדיקת המדד העדכני, <a href="https://www.hilan.co.il/%D7%9E%D7%A8%D7%9B%D7%96-%D7%99%D7%93%D7%A2/%D7%9E%D7%97%D7%A9%D7%91%D7%95%D7%A0%D7%99%D7%9D/%D7%98%D7%91%D7%9C%D7%AA-%D7%94%D7%A6%D7%9E%D7%93%D7%94-%D7%9C%D7%9E%D7%93%D7%93/" target="_blank" class="link">לחצו כאן</a>.</p>
+
+            <button onclick="calculate()">חשב</button>
+            <button onclick="clearFields()">נקה</button>
+            <button onclick="copyResults()">העתק תוצאות</button>
+
+            <div id="result"></div>
+
+            <div class="info-box">
+                שימו לב: התשלום הראשוני של 3.75% + מע"מ כבר שולם לרמ"י על ידי הקיבוץ ואינו כלול בחישוב זה.
+            </div>
+        </div>
+        
+        <div class="explanation">
+            <h2>הסבר על תשלומי ההיוון לרמ"י</h2>
+            <h3>מאת: אבי איגרמן, מנהל קהילת חפץ חיים</h3>
+            
+            <h4>מבנה התשלומים:</h4>
+            <ul>
+                <li><strong>160 מ"ר ראשונים:</strong> 29.25% מערך הנכס לרמ"י</li>
+                <li><strong>מעבר ל-160 מ"ר (עד 370 מ"ר):</strong> 33% נוספים על ההפרש</li>
+                <li><strong>מע"מ:</strong> 17% על כל הסכומים</li>
+            </ul>
+
+            <p class="highlight">חשוב: בכל מסלולי הדחייה, יש לשלם את מלוא המע"מ מיידית!</p>
+
+            <h4>אפשרויות דחיית תשלום:</h4>
+            <ol>
+                <li>לפי שומה נוכחית + ריבית והצמדה</li>
+                <li>לפי שומה עתידית בעת מכירת הנכס</li>
+            </ol>
+
+            <p>זכרו: המחשבון מיועד להערכה בלבד. רמ"י קובעת את הסכום הסופי לתשלום.</p>
+
+            <h4>המלצות:</h4>
+            <ul>
+                <li>בחנו את כל האפשרויות בקפידה</li>
+                <li>שקלו את היכולת הפיננסית הנוכחית מול העלויות העתידיות</li>
+                <li>התייעצו עם יועץ פיננסי או הנהלת הקיבוץ</li>
+            </ul>
+
+            <p>לשאלות נוספות, אנא פנו אליי.</p>
+        </div>
     </div>
 
-    <div class="greeting">
-        חברים יקרים, <br>
-        מאחל לכם הצלחה רבה בתהליך, ושתמיד תבחרו את הדרך הנכונה והמתאימה עבורכם. הכנו עבורכם הסבר קצר ומחשבון ידידותי לחישוב האפשרויות השונות בתהליך ההיוון, כדי להקל עליכם ולסייע בקבלת ההחלטות. אנחנו כאן לעזור ולהכווין, ונשמח ללוות אתכם בכל שלב. <br>
-        בברכה, <span class="manager">אבי איגרמן</span>, מנהל הקהילה
-    </div>
+    <script>
+        function formatNumber(num) {
+            return new Intl.NumberFormat('he-IL', { style: 'currency', currency: 'ILS' }).format(num);
+        }
 
-    <div class="header">
-        ברוכים הבאים למחשבון היוון ותשלום נדחה
-    </div>
+        function calculate() {
+            try {
+                const propertyValue = parseFloat(document.getElementById('propertyValue').value) || 0;
+                const requestedSize = parseFloat(document.getElementById('requestedSize').value) || 160;
+                const paymentOption = document.getElementById('paymentOption').value;
+                const deferYears = parseInt(document.getElementById('deferYears').value) || 0;
+                const interestRate = parseFloat(document.getElementById('interestRate').value) / 100 || 0.03;
+                const baseIndex = parseFloat(document.getElementById('baseIndex').value) || 100;
+                const currentIndex = parseFloat(document.getElementById('currentIndex').value) || 100;
+                const currentDate = new Date().toLocaleDateString('he-IL');
 
-    <p>
-        לפניכם שלוש אפשרויות תשלום:
-        <ul>
-            <li><strong>אפשרות 1: תשלום מיידי</strong><br>
-            בוחרים לשלם את כל התשלום לרמ"י בבת אחת, ומיד בתום התהליך התשלום הוא 29.25% מערך הנכס עבור 160 מ"ר הראשונים. אם הבנייה המבוקשת חורגת מעבר לזה, תשלום נוסף של 33% מערך השטח הנוסף יחול.<br>
-            <strong>מתי מתאים?</strong> כאשר רוצים לסיים את התהליך במהירות ולקבל את כל הזכויות ללא עיכובים נוספים.</li>
+                if (propertyValue <= 0) {
+                    throw new Error('אנא הזן ערך נכס חוקי.');
+                }
 
-            <li><strong>אפשרות 2: תשלום נדחה</strong><br>
-            אם אתם מעדיפים לדחות את התשלום, תוכלו לשלם את הסכום בעתיד. תשלום זה יחושב על בסיס ערך הנכס במועד ההעברה וישא ריבית והצמדה.<br>
-            <strong>מתי מתאים?</strong> כאשר אין יכולת לשלם את הסכום המלא כעת ורוצים יותר זמן להתארגן.</li>
+                let feeToRMI;
+                if (requestedSize <= 160) {
+                    feeToRMI = propertyValue * 0.2925 * (requestedSize / 160);
+                } else {
+                    feeToRMI = propertyValue * 0.2925 + (propertyValue * 0.33 * (requestedSize - 160) / 210);
+                }
 
-            <li><strong>אפשרות 3: תשלום מע"מ בלבד</strong><br>
-            ניתן לשלם את המע"מ בלבד בשלב ראשון, ואת יתרת התשלום במועד מאוחר יותר, בהתאם להסדרים שיקבעו עם רמ"י.<br>
-            <strong>מתי מתאים?</strong> כאשר רוצים להתחיל את התהליך עם תשלום מינימלי ולדחות את עיקר התשלום לעתיד.</li>
-        </ul>
-    </p>
+                const indexAdjustment = currentIndex / baseIndex;
+                const adjustedFeeToRMI = feeToRMI * indexAdjustment;
+                const indexationAmount = adjustedFeeToRMI - feeToRMI;
 
-    <div class="important">
-        תשלום נוסף לקיבוץ: 3.75% מערך הנכס + מע"מ.
-    </div>
+                const vatOnRMI = adjustedFeeToRMI * 0.17;
+                const totalFeeToRMI = adjustedFeeToRMI + vatOnRMI;
 
-    <div class="note">
-        * תוצאות החישוב הן להערכה בלבד ואינן מהוות אישור רשמי. יש להתייעץ עם הגורמים המוסמכים בקיבוץ ובמנהל מקרקעי ישראל לקבלת מידע מדויק ועדכני.
-    </div>
+                let resultHTML = `
+                    <h2>תוצאות החישוב:</h2>
+                    <p>תאריך חישוב: ${currentDate}</p>
+                    <p><span class="highlight">תשלום לרמ"י:</span> ${formatNumber(feeToRMI)} (לפני הצמדה ומע"מ)</p>
+                    <p>תוספת בגין הצמדה: ${formatNumber(indexationAmount)} (${((indexAdjustment - 1) * 100).toFixed(2)}%)</p>
+                    <p>סכום לרמ"י לאחר הצמדה: ${formatNumber(adjustedFeeToRMI)}</p>
+                    <p style="background-color: #f1c40f; padding: 5px;">מע"מ על תשלום לרמ"י: ${formatNumber(vatOnRMI)}</p>
+                    <p><span class="highlight">סה"כ תשלום לרמ"י (כולל הצמדה ומע"מ):</span> ${formatNumber(totalFeeToRMI)}</p>
+                `;
 
-    <h2>מחשבון היוון ותשלום נדחה עם הצמדה למדד</h2>
+                if (paymentOption === 'deferred') {
+                    const deferredPayment = totalFeeToRMI * Math.pow(1 + interestRate, deferYears);
+                    const interestAmount = deferredPayment - totalFeeToRMI;
+                    resultHTML += `
+                        <h3>פרטי תשלום נדחה:</h3>
+                        <p>תשלום מיידי (מע"מ בלבד): <span class="highlight">${formatNumber(vatOnRMI)}</span></p>
+                        <p>סה"כ תשלום נדחה לרמ"י (לאחר ${deferYears} שנים): ${formatNumber(deferredPayment)}</p>
+                        <p>תוספת בגין ריבית: ${formatNumber(interestAmount)} (${((interestAmount / totalFeeToRMI) * 100).toFixed(2)}%)</p>
+                    `;
+                } else {
+                    resultHTML += `<p>סה"כ תשלום מיידי: ${formatNumber(totalFeeToRMI)}</p>`;
+                }
 
-    <label for="propertyValue">ערך הנכס (בש"ח):</label>
-    <input type="number" id="propertyValue" placeholder="הכנס את ערך הנכס">
-
-    <label for="propertySize">גודל הנכס הקיים (במ"ר):</label>
-    <input type="number" id="propertySize" value="160">
-
-    <label for="buildingRights">זכויות בנייה כוללות (במ"ר):</label>
-    <input type="number" id="buildingRights" value="370">
-
-    <label for="requestedSize">שטח מבוקש לבנייה (במ"ר):</label>
-    <input type="number" id="requestedSize" value="160">
-
-    <label for="status">סטטוס חבר:</label>
-    <select id="status">
-        <option value="veteran">ותיק</option>
-        <option value="new">חדש</option>
-    </select>
-
-    <label for="paymentOption">אפשרות תשלום:</label>
-    <select id="paymentOption">
-        <option value="immediate">תשלום מיידי</option>
-        <option value="deferred">תשלום נדחה</option>
-        <option value="vatOnly">מע"מ בלבד</option>
-    </select>
-
-    <label for="heirs">מספר יורשים:</label>
-    <input type="number" id="heirs" value="1">
-
-    <label for="interestRate">ריבית שנתית (%):</label>
-    <input type="number" id="interestRate" placeholder="הכנס את אחוז הריבית השנתית">
-
-    <label for="deferYears">מספר שנים לדחייה:</label>
-    <input type="number" id="deferYears" placeholder="הכנס את מספר השנים לדחייה">
-
-    <label for="baseIndex">מדד בסיסי:</label>
-    <input type="number" id="baseIndex" placeholder="מדד המחירים לצרכן בעת דחיית התשלום">
-
-    <label for="currentIndex">מדד נוכחי:</label>
-    <input type="number" id="currentIndex" placeholder="מדד המחירים לצרכן הנוכחי">
-
-    <button id="calculateButton">חשב</button>
-    <button class="
-    clear-button" id="clearButton">נקה</button>
-
-    <div class="result" id="result"></div>
-
-    <div class="external-link">
-        <a href="https://www.hilan.co.il/%D7%9E%D7%A8%D7%9B%D7%96-%D7%99%D7%93%D7%A2/%D7%9E%D7%97%D7%A9%D7%91%D7%95%D7%A0%D7%99%D7%9D/%D7%98%D7%91%D7%9C%D7%AA-%D7%94%D7%A6%D7%9E%D7%93%D7%94-%D7%9C%D7%9E%D7%93%D7%93/" target="_blank">לחץ כאן לבדיקת מדדים במחשבון הצמדה למדד של חילן</a>
-    </div>
-</div>
-
-<script>
-    function numberWithCommas(x) {
-        return x.toLocaleString();
-    }
-
-    document.getElementById('calculateButton').addEventListener('click', function() {
-        const propertyValue = parseFloat(document.getElementById('propertyValue').value) || 0;
-        const propertySize = parseFloat(document.getElementById('propertySize').value) || 160;
-        const buildingRights = Math.min(parseFloat(document.getElementById('buildingRights').value) || 370, 370);
-        const requestedSize = Math.min(parseFloat(document.getElementById('requestedSize').value) || 160, 370);
-        const status = document.getElementById('status').value;
-        const paymentOption = document.getElementById('paymentOption').value;
-        const heirs = parseInt(document.getElementById('heirs').value) || 1;
-        const interestRate = parseFloat(document.getElementById('interestRate').value) / 100 || 0;
-        const deferYears = parseFloat(document.getElementById('deferYears').value) || 0;
-        const baseIndex = parseFloat(document.getElementById('baseIndex').value) || 100;
-        const currentIndex = parseFloat(document.getElementById('currentIndex').value) || 100;
-
-        let baseFee = 0, additionalFee = 0;
-
-        if (status === 'veteran') {
-            if (requestedSize <= 160) {
-                baseFee = propertyValue * 0.2925;
-                additionalFee = 0;
-            } else {
-                baseFee = propertyValue * 0.2925 * (160 / requestedSize);
-                additionalFee = propertyValue * 0.33 * ((requestedSize - 160) / requestedSize);
+                document.getElementById('result').innerHTML = resultHTML;
+            } catch (error) {
+                console.error('שגיאה בחישוב:', error);
+                document.getElementById('result').innerHTML = `<p style="color: red;">שגיאה: ${error.message}</p>`;
             }
-        } else {
-            baseFee = propertyValue * 0.91;
         }
 
-        const totalFee = baseFee + additionalFee;
-        const adjustedAmount = totalFee * (currentIndex / baseIndex);
-        const vatAmount = adjustedAmount * 0.17;
-        const totalWithVat = adjustedAmount + vatAmount;
-        const feePerHeir = totalWithVat / heirs;
-
-        const kibbutzFee = propertyValue * 0.0375;
-        const kibbutzFeeWithVat = kibbutzFee * 1.17;
-
-        let immediatePayment = 0, deferredPayment = 0;
-        let totalInterest = 0;
-        switch(paymentOption) {
-            case 'immediate':
-                immediatePayment = totalWithVat;
-                break;
-            case 'deferred':
-                deferredPayment = totalWithVat * Math.pow(1 + interestRate, deferYears);
-                totalInterest = deferredPayment - totalWithVat;
-                break;
-            case 'vatOnly':
-                immediatePayment = vatAmount;
-                deferredPayment = adjustedAmount;
-                break;
+        function clearFields() {
+            document.getElementById('propertyValue').value = '';
+            document.getElementById('requestedSize').value = '160';
+            document.getElementById('paymentOption').value = 'partial_160';
+            document.getElementById('deferYears').value = '0';
+            document.getElementById('interestRate').value = '3';
+            document.getElementById('baseIndex').value = '100';
+            document.getElementById('currentIndex').value = '100';
+            document.getElementById('result').innerHTML = '';
         }
 
-        const indexationIncrease = adjustedAmount - totalFee;
-        const interestPercentage = (totalInterest / propertyValue) * 100;
-        const indexationPercentage = ((currentIndex - baseIndex) / baseIndex) * 100;
-
-        const totalFamilyPayment = deferredPayment + kibbutzFeeWithVat;
-        const remainingValueForFamily = propertyValue - totalFamilyPayment;
-        const percentageRemaining = (remainingValueForFamily / propertyValue) * 100;
-
-        const resultDiv = document.getElementById('result');
-        resultDiv.innerHTML = `
-            <h2>תוצאות החישוב:</h2>
-            <div>דמי היוון בסיסיים (29.25% מערך הנכס עבור 160 מ"ר ראשונים): ${numberWithCommas(baseFee)} ₪</div>
-            <div>תוספת עבור שטח נוסף (33% מערך הנכס עבור שטח מעל 160 מ"ר): ${numberWithCommas(additionalFee)} ₪</div>
-            <div>סה"כ דמי היוון: ${numberWithCommas(totalFee)} ₪</div>
-            <div>מדד בסיסי: ${numberWithCommas(baseIndex)}</div>
-            <div>מדד נוכחי: ${numberWithCommas(currentIndex)}</div>
-            <div>אחוז ההצמדה: ${indexationPercentage.toFixed(2)}%</div>
-            <div>תוספת בגין הצמדה: ${numberWithCommas(indexationIncrease)} ₪</div>
-            <div>סכום לאחר הצמדה למדד: ${numberWithCommas(adjustedAmount)} ₪</div>
-            <div>מע"מ (17%): ${numberWithCommas(vatAmount)} ₪</div>
-            <div class="important">סה"כ לתשלום לרמ"י: ${numberWithCommas(totalWithVat)} ₪</div>
-            <div>תשלום מיידי לרמ"י: ${numberWithCommas(immediatePayment)} ₪</div>
-            <div>תשלום נדחה לרמ"י (כולל ריבית דריבית): ${numberWithCommas(deferredPayment)} ₪</div>
-            <div>אחוז הריבית: ${interestPercentage.toFixed(2)}%</div>
-            <div>תוספת בגין ריבית: ${numberWithCommas(totalInterest)} ₪</div>
-            <div class="highlight">סה"כ תוספות בגין הצמדה וריבית: ${numberWithCommas(indexationIncrease + totalInterest)} ₪</div>
-            <div>תשלום לקיבוץ (3.75% + מע"מ): ${numberWithCommas(kibbutzFeeWithVat)} ₪</div>
-            <div>סה"כ תשלום משפחתי בפרויקט: ${numberWithCommas(totalFamilyPayment)} ₪</div>
-            <div>כמה ישאר למשפחה: ${numberWithCommas(remainingValueForFamily)} ₪ (${percentageRemaining.toFixed(2)}% מהערך המקורי)</div>
-            <div>כמה ישלם כל יורש: ${numberWithCommas(feePerHeir)} ₪</div>
-        `;
-    });
-
-    document.getElementById('clearButton').addEventListener('click', function() {
-        document.getElementById('propertyValue').value = '';
-        document.getElementById('propertySize').value = '160';
-        document.getElementById('buildingRights').value = '370';
-        document.getElementById('requestedSize').value = '160';
-        document.getElementById('status').value = 'veteran';
-        document.getElementById('paymentOption').value = 'immediate';
-        document.getElementById('heirs').value = '1';
-        document.getElementById('interestRate').value = '';
-        document.getElementById('deferYears').value = '';
-        document.getElementById('baseIndex').value = '';
-        document.getElementById('currentIndex').value = '';
-        document.getElementById('result').innerHTML = '';
-    });
-</script>
-
+        function copyResults() {
+            const resultDiv = document.getElementById('result');
+            const textToCopy = resultDiv.innerText;
+            
+            navigator.clipboard.writeText(textToCopy).then(function() {
+                alert('התוצאות הועתקו ללוח. כעת תוכלו להדביק אותן בכל מקום שתרצו.');
+            }, function(err) {
+                console.error('שגיאה בהעתקה: ', err);
+                alert('אירעה שגיאה בהעתקת התוצאות. אנא נסו שוב או העתיקו ידנית.');
+            });
+        }
+    </script>
 </body>
-</html>
+Last edited לפני שתי דקות
+
+
