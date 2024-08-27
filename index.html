@@ -155,6 +155,7 @@
             <button onclick="calculate()">חשב</button>
             <button onclick="clearFields()">נקה</button>
             <button onclick="copyResults()">העתק תוצאות</button>
+            <button onclick="returnToSimpleCalculator()">חזרה למחשבון הפשוט</button>
 
             <div id="result"></div>
 
@@ -293,6 +294,10 @@
                 console.error('שגיאה בהעתקה: ', err);
                 alert('אירעה שגיאה בהעתקת התוצאות. אנא נסו שוב או העתיקו ידנית.');
             });
+        }
+
+        function returnToSimpleCalculator() {
+            window.location.href = 'https://lanchi10.github.io/avi2/';
         }
     </script>
 </body>
